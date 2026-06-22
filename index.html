@@ -1,0 +1,3825 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Alexandre · 8.º ano · 3.º Período</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #020617;
+      --card: #020617;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --accent-strong: #1d4ed8;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --good: #16a34a;
+      --mid: #eab308;
+      --warn: #f97316;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+
+    body.light {
+      --bg: #f5f5f5;
+      --bg-alt: #ffffff;
+      --card: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.08);
+      --accent-strong: #1d4ed8;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 16px;
+      transition: background 0.25s ease-out, color 0.25s ease-out;
+    }
+
+    body.light {
+      background: radial-gradient(circle at top, #e5e7eb 0, #f5f5f5 40%, #e5e7eb 100%);
+    }
+
+    .app-shell {
+      display: flex;
+      flex-direction: row;
+      max-width: 1200px;
+      width: 100%;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      transition: background 0.25s ease-out, border-color 0.25s ease-out, box-shadow 0.25s ease-out;
+    }
+
+    body.light .app-shell {
+      background: linear-gradient(145deg, #ffffff, #f9fafb);
+      border-color: rgba(148, 163, 184, 0.4);
+    }
+
+    .sidebar {
+      width: 260px;
+      background: radial-gradient(circle at top left, #020617 0, #020617 55%, #000 100%);
+      border-right: 1px solid rgba(30, 64, 175, 0.4);
+      padding: 18px 14px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: background 0.25s ease-out, border-color 0.25s ease-out;
+    }
+
+    body.light .sidebar {
+      background: radial-gradient(circle at top left, #e5e7eb 0, #f9fafb 60%, #e5e7eb 100%);
+      border-right-color: rgba(148, 163, 184, 0.6);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 55%);
+    }
+
+    body.light .brand {
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), #ffffff 70%);
+    }
+
+    .brand-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: conic-gradient(from 210deg, #38bdf8, #22c55e, #eab308, #38bdf8);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #1e293b, #020617 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #e5f3ff;
+    }
+
+    body.light .brand-avatar-inner {
+      background: radial-gradient(circle at 30% 20%, #e5e7eb, #111827 80%);
+      color: #f9fafb;
+    }
+
+    .brand-text-main {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    body.light .brand-text-main {
+      color: #111827;
+    }
+
+    .brand-text-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .sidebar-section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #6b7280;
+      padding: 0 4px;
+    }
+
+    .tab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .tab-button {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.18s ease-out, color 0.18s ease-out,
+        transform 0.18s ease-out, box-shadow 0.18s ease-out;
+      position: relative;
+    }
+
+    .tab-button span.badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+      margin-left: auto;
+    }
+
+    body.light .tab-button span.badge {
+      background: #ffffff;
+      color: #111827;
+      border-color: rgba(148, 163, 184, 0.7);
+    }
+
+    .tab-button .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.6);
+    }
+
+    .tab-button.active {
+      background: radial-gradient(circle at left, rgba(37, 99, 235, 0.35), rgba(15, 23, 42, 0.95));
+      color: #e5e7eb;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.5), 0 12px 30px rgba(15, 23, 42, 0.9);
+      transform: translateX(2px);
+    }
+
+    body.light .tab-button.active {
+      background: radial-gradient(circle at left, rgba(37, 99, 235, 0.18), #ffffff);
+      color: #111827;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4), 0 10px 24px rgba(15, 23, 42, 0.15);
+    }
+
+    .tab-button.active .dot {
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .tab-button:hover:not(.active) {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      transform: translateX(1px);
+    }
+
+    body.light .tab-button:hover:not(.active) {
+      background: rgba(229, 231, 235, 0.9);
+      color: #111827;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      font-size: 11px;
+      color: #6b7280;
+      padding: 6px 6px 2px;
+      border-top: 1px solid rgba(30, 64, 175, 0.4);
+    }
+
+    body.light .sidebar-footer {
+      border-top-color: rgba(148, 163, 184, 0.7);
+    }
+
+    .sidebar-footer strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    body.light .sidebar-footer strong {
+      color: #111827;
+    }
+
+    .content {
+      flex: 1;
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow: hidden;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98));
+      transition: background 0.25s ease-out;
+    }
+
+    body.light .content {
+      background: radial-gradient(circle at top left, #f9fafb, #ffffff);
+    }
+
+    .content-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title-block h1 {
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title-pill {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    body.light .title-pill {
+      background: #ffffff;
+    }
+
+    .title-block p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .header-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    body.light .chip {
+      background: #ffffff;
+      color: #111827;
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+    }
+
+    .chip-warn {
+      border-color: rgba(248, 250, 252, 0.2);
+      background: rgba(127, 29, 29, 0.7);
+      color: #fee2e2;
+    }
+
+    body.light .chip-warn {
+      background: #fef2f2;
+      color: #7f1d1d;
+      border-color: #fecaca;
+    }
+
+    .chip-soft {
+      border-color: rgba(37, 99, 235, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    body.light .chip-soft {
+      background: #eff6ff;
+    }
+
+    .theme-toggle {
+      border: none;
+      outline: none;
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border-radius: 999px;
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s ease-out, transform 0.15s ease-out, box-shadow 0.2s ease-out;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.5);
+    }
+
+    body.light .theme-toggle {
+      background: #ffffff;
+      color: #111827;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.7);
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.6);
+    }
+
+    body.light .theme-toggle:hover {
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.18);
+    }
+
+    .tab-panel {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .tab-panel.active {
+      display: flex;
+    }
+
+    .panel-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 12px 14px;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.9);
+      transition: background 0.25s ease-out, border-color 0.25s ease-out, box-shadow 0.25s ease-out;
+    }
+
+    body.light .card {
+      background: #ffffff;
+      border-color: rgba(209, 213, 219, 0.9);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    body.light .pill {
+      background: #ffffff;
+    }
+
+    .pill-good {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+      background: rgba(22, 163, 74, 0.15);
+    }
+
+    body.light .pill-good {
+      color: #166534;
+      background: #dcfce7;
+    }
+
+    .pill-mid {
+      border-color: rgba(234, 179, 8, 0.7);
+      color: #fef9c3;
+      background: rgba(202, 138, 4, 0.15);
+    }
+
+    body.light .pill-mid {
+      color: #92400e;
+      background: #fef3c7;
+    }
+
+    .pill-warn {
+      border-color: rgba(249, 115, 22, 0.7);
+      color: #fed7aa;
+      background: rgba(194, 65, 12, 0.18);
+    }
+
+    body.light .pill-warn {
+      color: #9a3412;
+      background: #ffedd5;
+    }
+
+    .grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .stat-card {
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: background 0.25s ease-out, border-color 0.25s ease-out;
+    }
+
+    body.light .stat-card {
+      background: #f9fafb;
+      border-color: rgba(209, 213, 219, 0.9);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .stat-main {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .stat-tag {
+      font-size: 11px;
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    body.light .stat-tag {
+      background: #ffffff;
+    }
+
+    .stat-tag-good {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+    }
+
+    body.light .stat-tag-good {
+      color: #166534;
+    }
+
+    .stat-tag-mid {
+      border-color: rgba(234, 179, 8, 0.7);
+      color: #fef9c3;
+    }
+
+    body.light .stat-tag-mid {
+      color: #92400e;
+    }
+
+    .stat-tag-warn {
+      border-color: rgba(249, 115, 22, 0.7);
+      color: #fed7aa;
+    }
+
+    body.light .stat-tag-warn {
+      color: #9a3412;
+    }
+
+    .stat-extra {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    th,
+    td {
+      padding: 6px 8px;
+      text-align: left;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    body.light th,
+    body.light td {
+      border-bottom-color: rgba(209, 213, 219, 0.9);
+    }
+
+    th {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      background: rgba(15, 23, 42, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    body.light th {
+      background: #f3f4f6;
+      color: #4b5563;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(15, 23, 42, 0.65);
+    }
+
+    tr:nth-child(odd) td {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    body.light tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    body.light tr:nth-child(odd) td {
+      background: #ffffff;
+    }
+
+    .grade-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+    }
+
+    body.light .grade-pill {
+      background: #ffffff;
+      color: #111827;
+    }
+
+    .grade-5 {
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #bbf7d0;
+      background: rgba(22, 163, 74, 0.18);
+    }
+
+    body.light .grade-5 {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .grade-4 {
+      border-color: rgba(37, 99, 235, 0.9);
+      color: #e0f2fe;
+      background: rgba(37, 99, 235, 0.18);
+    }
+
+    body.light .grade-4 {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .qual-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+    }
+
+    body.light .qual-pill {
+      background: #ffffff;
+      color: #111827;
+    }
+
+    .qual-mb {
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #bbf7d0;
+      background: rgba(22, 163, 74, 0.18);
+    }
+
+    body.light .qual-mb {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .qual-b {
+      border-color: rgba(37, 99, 235, 0.9);
+      color: #e0f2fe;
+      background: rgba(37, 99, 235, 0.18);
+    }
+
+    body.light .qual-b {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .qual-s {
+      border-color: rgba(234, 179, 8, 0.9);
+      color: #fef9c3;
+      background: rgba(202, 138, 4, 0.18);
+    }
+
+    body.light .qual-s {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .hint strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .textarea-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 70px;
+      resize: vertical;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text);
+      padding: 8px 10px;
+      font-family: var(--font-main);
+      font-size: 12px;
+      outline: none;
+      transition: border 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out;
+    }
+
+    body.light textarea {
+      background: #f9fafb;
+      border-color: rgba(209, 213, 219, 0.9);
+    }
+
+    textarea:focus {
+      border-color: rgba(37, 99, 235, 0.9);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    body.light textarea:focus {
+      background: #ffffff;
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px dashed rgba(55, 65, 81, 0.9);
+      padding-top: 6px;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    body.light .footer-note {
+      border-top-color: rgba(209, 213, 219, 0.9);
+    }
+
+    .footer-note span.icon {
+      font-size: 13px;
+    }
+
+    .conclusion-highlight {
+      font-size: 13px;
+      line-height: 1.5;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), rgba(15, 23, 42, 0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(37, 99, 235, 0.6);
+      padding: 10px 12px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    body.light .conclusion-highlight {
+      background: radial-gradient(circle at top left, #eff6ff, #ffffff);
+      border-color: rgba(37, 99, 235, 0.7);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .param-title {
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    .param-full {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        flex-direction: column;
+        max-height: none;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px;
+        overflow-x: auto;
+      }
+
+      body.light .sidebar {
+        border-bottom-color: rgba(148, 163, 184, 0.7);
+      }
+
+      .brand {
+        min-width: 180px;
+      }
+
+      .sidebar-section-title {
+        display: none;
+      }
+
+      .tab-list {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 6px;
+        padding-right: 0;
+      }
+
+      .tab-button {
+        white-space: nowrap;
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+
+      .content {
+        padding: 12px;
+      }
+
+      .title-block h1 {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 8px;
+      }
+
+      .app-shell {
+        border-radius: 18px;
+      }
+
+      .card {
+        padding: 10px;
+      }
+
+      .stat-main {
+        font-size: 14px;
+      }
+
+      table {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-avatar">
+          <div class="brand-avatar-inner">A</div>
+        </div>
+        <div>
+          <div class="brand-text-main">Alexandre · 8.º ano</div>
+          <div class="brand-text-sub">Colégio Novo da Maia · 3.º Período</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section-title">Visão geral</div>
+      <div class="tab-list">
+        <button class="tab-button active" data-tab="overview">
+          <span class="dot"></span>
+          Panorama geral
+          <span class="badge">3 períodos</span>
+        </button>
+      </div>
+
+      <div class="sidebar-section-title">Disciplinas</div>
+      <div class="tab-list">
+        <button class="tab-button" data-tab="pt"><span class="dot"></span>Português</button>
+        <button class="tab-button" data-tab="en"><span class="dot"></span>Inglês</button>
+        <button class="tab-button" data-tab="hist"><span class="dot"></span>História</button>
+        <button class="tab-button" data-tab="geo"><span class="dot"></span>Geografia</button>
+        <button class="tab-button" data-tab="mat"><span class="dot"></span>Matemática</button>
+        <button class="tab-button" data-tab="cn"><span class="dot"></span>Ciências Naturais</button>
+        <button class="tab-button" data-tab="fq"><span class="dot"></span>Físico-Química</button>
+        <button class="tab-button" data-tab="ev"><span class="dot"></span>Educação Visual</button>
+        <button class="tab-button" data-tab="ef"><span class="dot"></span>Educação Física</button>
+        <button class="tab-button" data-tab="tic"><span class="dot"></span>TIC · Multimédia</button>
+        <button class="tab-button" data-tab="cid"><span class="dot"></span>Cidadania e Des.</button>
+        <button class="tab-button" data-tab="fil"><span class="dot"></span>Filosofia</button>
+        <button class="tab-button" data-tab="teatro"><span class="dot"></span>Teatro e Comunicação</button>
+        <button class="tab-button" data-tab="de"><span class="dot"></span>Alemão</button>
+        <button class="tab-button" data-tab="bu"><span class="dot"></span>B.U+</button>
+      </div>
+
+      <div class="sidebar-section-title">Final</div>
+      <div class="tab-list">
+        <button class="tab-button" data-tab="conclusao">
+          <span class="dot"></span>
+          Conclusão geral
+        </button>
+      </div>
+
+      <div class="sidebar-footer">
+        <div><strong>Modo de leitura:</strong> escolhe uma disciplina de cada vez, sem pressa. 📚</div>
+        <div>Compara-te apenas contigo próprio — versão 8.º ano vs. versão 7.º ano 😉</div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="content-header">
+        <div class="title-block">
+          <h1>
+            📊 Visão geral
+            <span class="title-pill">3.º Período · 8.º ano</span>
+          </h1>
+          <p>Um painel para veres, com calma, o caminho que fizeste este ano — disciplina a disciplina.</p>
+        </div>
+        <div class="header-chip-row">
+          <div class="chip chip-soft">
+            <span class="chip-dot"></span>
+            Foco: melhorar em pequenos passos
+          </div>
+          <div class="chip">
+            🎯 Objetivo: comparar-te contigo, não com os outros
+          </div>
+          <div class="chip chip-warn">
+            ⏱️ Provas nacionais não têm “tempo extra”
+          </div>
+          <button class="theme-toggle" id="themeToggle" title="Alternar tema">
+            🌙
+          </button>
+        </div>
+      </header>
+
+      <!-- OVERVIEW TAB -->
+      <section class="tab-panel active" id="tab-overview">
+        <div class="panel-scroll">
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Resumo das classificações numéricas</div>
+                <div class="card-subtitle">Notas finais por período · 1.º → 2.º → 3.º</div>
+              </div>
+            </div>
+            <div class="grid grid-3">
+              <div class="stat-card">
+                <div class="stat-label">Português</div>
+                <div class="stat-main">
+                  <span class="grade-pill grade-4">4</span>
+                  <span class="stat-tag stat-tag-mid">Área desafiante, mas estável</span>
+                </div>
+                <div class="stat-extra">
+                  Mantiveste o 4 todo o ano numa disciplina que é, por natureza, mais difícil para ti. 💪
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Matemática</div>
+                <div class="stat-main">
+                  <span class="grade-pill grade-4">4</span>
+                  <span class="stat-tag stat-tag-good">Talento natural</span>
+                </div>
+                <div class="stat-extra">
+                  A prof. vê-te como aluno de 5 — com um pouco mais de foco e organização, chegas lá. 🧠
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Inglês</div>
+                <div class="stat-main">
+                  <span class="grade-pill grade-4">4</span>
+                  <span class="stat-tag stat-tag-mid">Podes ir mais longe</span>
+                </div>
+                <div class="stat-extra">
+                  A prof. diz que consegues mais — aqui é mais “esforço” do que “dificuldade real”. 🎧📺
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Alemão</div>
+                <div class="stat-main">
+                  <span class="grade-pill grade-5">5</span>
+                  <span class="stat-tag stat-tag-good">Super força</span>
+                </div>
+                <div class="stat-extra">
+                  Andas entre 85–100% — talento + contexto em casa = combo muito forte. 🇩🇪
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Ciências / FQ</div>
+                <div class="stat-main">
+                  <span class="grade-pill grade-5">5</span>
+                  <span class="stat-tag stat-tag-good">Muito sólido</span>
+                </div>
+                <div class="stat-extra">
+                  Ciências Naturais (5–4–5) e Físico-Química (4–5–5): evolução muito boa nas áreas científicas. 🔬
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Outras disciplinas</div>
+                <div class="stat-main">
+                  <span class="grade-pill grade-5">5</span>
+                  <span class="stat-tag stat-tag-good">Consistência</span>
+                </div>
+                <div class="stat-extra">
+                  Educação Visual, Educação Física, Cidadania, Filosofia, B.U+, Teatro: zona de conforto bem construída. 🎭⚽
+                </div>
+              </div>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Disciplina</th>
+                  <th>1.º P</th>
+                  <th>2.º P</th>
+                  <th>3.º P</th>
+                  <th>Comentário de evolução</th>
+                  <th>Pontos a melhorar (pequenos passos)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Português</td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td>
+                    Mantiveste o 4 todo o ano numa disciplina que é, para ti, a mais difícil. Isso mostra que, mesmo com ansiedade e tensão nos testes, consegues segurar o nível.
+                  </td>
+                  <td>
+                    Ler 10–20 min de textos literários em voz baixa por dia 📖; treinar interpretação (Escola Virtual) e não depender de “tempo extra” — foca-te em gerir melhor o tempo de teste.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Inglês</td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td>
+                    Nota estável, mas a prof. diz claramente que consegues mais. Em aula estás muito bem, educado e participativo — o que falha é o estudo antes de alguns testes.
+                  </td>
+                  <td>
+                    Ver séries/filmes em EN com legendas em EN 🎬; fazer um mini-resumo em inglês de vez em quando; antes dos testes, 20–30 min de revisão focada em vocabulário e estruturas.
+                  </td>
+                </tr>
+                <tr>
+                  <td>História</td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Evolução clara: de 4 para 5 e mantiveste o 5. Mostra que, quando organizas o estudo e entendes bem as relações entre os temas, consegues subir e manter.
+                  </td>
+                  <td>
+                    Continuar a usar esquemas, linhas do tempo e mapas mentais 🧠; rever rapidamente antes dos testes para não perder detalhes simples.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Geografia</td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Tal como em História, subiste para 5 e mantiveste. Boa leitura de mapas e fenómenos geográficos, com sentido crítico.
+                  </td>
+                  <td>
+                    Manter o hábito de organizar a informação em tabelas e esquemas; fazer 2–3 exercícios de leitura de mapas antes dos testes. 🗺️
+                  </td>
+                </tr>
+                <tr>
+                  <td>Matemática</td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td>
+                    Nota estável, mas abaixo do teu potencial real (a prof. e os pais veem-te como aluno de 5). Houve um teste em que baixaste por falta de estudo e distrações.
+                  </td>
+                  <td>
+                    2 exercícios por dia de problemas (especialmente “traduzir” PT → Mat) ➕ usar calculadora quando é permitido ➕ organizar melhor as respostas para evitar erros por riscos e confusão.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ciências Naturais</td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Começaste muito forte, baixaste um pouco e voltaste a subir. Mostra que, quando voltas a focar, recuperas rapidamente.
+                  </td>
+                  <td>
+                    Rever apontamentos logo após as aulas 🧪; fazer pequenos resumos; não deixar acumular matéria antes dos testes.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Físico-Química</td>
+                  <td><span class="grade-pill grade-4">4</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Evolução muito boa: de 4 para 5 e mantiveste. Mostra que ganhaste confiança nos laboratórios e na interpretação de fenómenos.
+                  </td>
+                  <td>
+                    Continuar a organizar bem os dados dos problemas; escrever raciocínios de forma clara; manter atenção às unidades e linguagem científica. ⚗️
+                  </td>
+                </tr>
+                <tr>
+                  <td>Educação Visual</td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Consistência total — portefólio organizado, criatividade e boa autoanálise. Zona de conforto bem construída.
+                  </td>
+                  <td>
+                    Explorar projetos pessoais (desenho, design, etc.) 🎨; usar esta disciplina para treinar foco e cumprimento de prazos.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Educação Física</td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Muito bom em cooperação, regras e capacidades motoras. Mostra disciplina, respeito e empenho.
+                  </td>
+                  <td>
+                    Manter o espírito de equipa ⚽; usar o desporto como forma de gerir stress antes de testes.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Cidadania e Des.</td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Participas, cooperas, cumpres regras e contribuis para um clima positivo. Isto diz muito sobre quem és como pessoa.
+                  </td>
+                  <td>
+                    Continuar a ser exemplo de respeito e colaboração; usar estes projetos para treinar autonomia. 🌱
+                  </td>
+                </tr>
+                <tr>
+                  <td>Filosofia</td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Pensas, argumentas, contra-argumentas e fundamentas ideias com respeito. Excelente base para qualquer área futura.
+                  </td>
+                  <td>
+                    Guardar algumas das melhores ideias em notas; treinar explicar conceitos difíceis de forma simples. 💭
+                  </td>
+                </tr>
+                <tr>
+                  <td>Teatro e Comunicação</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Entraste mais tarde e terminaste logo com 5 — domínio de técnicas, criatividade e boa cooperação.
+                  </td>
+                  <td>
+                    Usar o teatro para ganhar ainda mais confiança na comunicação em PT e EN; treinar voz e presença. 🎭
+                  </td>
+                </tr>
+                <tr>
+                  <td>Alemão</td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Talento claro, com apoio em casa. Expressão oral e compreensão muito fortes; escrita também em bom nível.
+                  </td>
+                  <td>
+                    Escrever pequenos textos sobre o teu dia em alemão; manter contacto diário com a língua (música, vídeos, conversas). 🇩🇪
+                  </td>
+                </tr>
+                <tr>
+                  <td>B.U+</td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td><span class="grade-pill grade-5">5</span></td>
+                  <td>
+                    Mostras organização, reflexão e motivação. Usas o “Be Your Story” como ferramenta de crescimento.
+                  </td>
+                  <td>
+                    Continuar a usar o diário para perceber o que funciona melhor para ti em estudo, sono e bem-estar. 📓
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="hint">
+              💡 <strong>Ideia geral:</strong> tens várias áreas de força (Mat, Alemão, Ciências, FQ, EV, EF, Filosofia, Cidadania, B.U+)
+              e duas zonas onde podes crescer muito com pequenos ajustes: <strong>Português</strong> e <strong>Inglês</strong>.
+            </p>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <div class="card-title">Como ler as avaliações qualitativas</div>
+            </div>
+            <p class="card-subtitle">
+              A escola usa descrições como “Muito Bom”, “Bom”, “Suficiente” para explicar o que fazes bem e o que podes melhorar.
+            </p>
+            <div class="grid grid-3" style="margin-top: 8px;">
+              <div class="stat-card">
+                <div class="stat-label">Muito Bom (MB)</div>
+                <div class="stat-main">
+                  <span class="qual-pill qual-mb">Muito Bom</span>
+                </div>
+                <div class="stat-extra">
+                  Estás acima do esperado: dominas bem, aplicas em situações diferentes e mostras autonomia. 🚀
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Bom (B)</div>
+                <div class="stat-main">
+                  <span class="qual-pill qual-b">Bom</span>
+                </div>
+                <div class="stat-extra">
+                  Estás no nível esperado, mas ainda há espaço para subir com um pouco mais de foco e treino. 📈
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Suficiente (S)</div>
+                <div class="stat-main">
+                  <span class="qual-pill qual-s">Suficiente</span>
+                </div>
+                <div class="stat-extra">
+                  Chegas ao mínimo, mas a escola está a dizer: “se trabalhares um pouco mais, consegues bem melhor”. 🧩
+                </div>
+              </div>
+            </div>
+            <p class="hint">
+              🧠 <strong>Tradução simples:</strong> estas descrições não são rótulos — são pistas para perceberes <em>onde</em> vale a pena investir tempo.
+            </p>
+          </section>
+
+          <div class="footer-note">
+            <span class="icon">🦶</span>
+            Cada melhoria começa em passos pequenos e repetidos. Não é “mudar tudo”, é escolher 1–2 hábitos por disciplina.
+          </div>
+        </div>
+      </section>
+
+      <!-- AQUI VÃO ENTRAR AS TABS DAS DISCIPLINAS (PORTUGUÊS, INGLÊS, ETC.) -->
+      <!-- COLAR CADA BLOCO QUE EU TE FOR ENVIANDO A SEGUIR -->
+
+<!-- ========================= -->
+<!-- ======= PORTUGUÊS ======= -->
+<!-- ========================= -->
+
+<section class="tab-panel" id="tab-pt">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Português · visão geral</div>
+          <div class="card-subtitle">
+            A disciplina onde tens mais dificuldade — e onde já mostraste muita resistência e evolução.
+          </div>
+        </div>
+        <span class="pill pill-warn">Zona de desafio + oportunidade</span>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="stat-card">
+          <div class="stat-label">Classificações</div>
+          <div class="stat-main">
+            <span class="grade-pill grade-4">4</span>
+            <span class="grade-pill grade-4">4</span>
+            <span class="grade-pill grade-4">4</span>
+          </div>
+          <div class="stat-extra">
+            Mantiveste o 4 todo o ano numa disciplina que te exige mais esforço mental.
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Ponto forte</div>
+          <div class="stat-main">
+            Gramática
+            <span class="stat-tag stat-tag-good">“Matemática do Português”</span>
+          </div>
+          <div class="stat-extra">
+            A gramática é a parte onde brilhas mais — regras, estruturas, análise. Isto é uma base muito boa.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Interpretação de textos orais</div>
+              <div class="param-full">(“Interpreta textos orais, tendo em conta a situação e o objetivo de comunicação.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Produção de textos orais</div>
+              <div class="param-full">(“Planifica e produz textos orais, com diferentes finalidades, interagindo com tolerância e respeito, em cooperação com os outros.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Leitura de textos diversos</div>
+              <div class="param-full">(“Lê, com fluência e eficácia, textos diversos, em suportes variados e através de diferentes tipos de leitura.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Sentido global e estrutura dos textos</div>
+              <div class="param-full">(“Explicita o sentido global dos textos e reconhece a sua estrutura e intencionalidade comunicativa, com sentido crítico.”)</div>
+            </td>
+            <td><span class="qual-pill qual-s">Suficiente</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Leitura de obras literárias</div>
+              <div class="param-full">(“Lê obras literárias, interpretando-as em função do género literário a que pertencem e apreciando o seu valor estético e cultural, com sentido crítico.”)</div>
+            </td>
+            <td><span class="qual-pill qual-s">Suficiente</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 6 -->
+          <tr>
+            <td>
+              <div class="param-title">Percurso pessoal de leitor</div>
+              <div class="param-full">(“Desenvolve um percurso pessoal de leitor, com autonomia e responsabilidade.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 7 -->
+          <tr>
+            <td>
+              <div class="param-title">Produção de textos escritos</div>
+              <div class="param-full">(“Planifica e elabora textos com correção linguística, coesos e coerentes, que cumprem objetivos explícitos, revelando empenho e compromisso na reformulação dos mesmos.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 8 -->
+          <tr>
+            <td>
+              <div class="param-title">Conteúdos gramaticais</div>
+              <div class="param-full">(“Identifica, analisa e emprega corretamente os conteúdos dos planos fundamentais da gramática, com autonomia e sentido crítico.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        💬 <strong>Tradução:</strong> a parte de falar e ouvir está muito bem; a leitura mais profunda e a interpretação de textos literários é onde tens mais margem para crescer.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        Português é, assumidamente, a tua disciplina mais difícil — e mesmo assim mantiveste um 4 o ano inteiro.
+      </p>
+
+      <p class="hint">
+        👉 Tens ansiedade nos testes e, às vezes, confias no “tempo extra” que alguns professores dão.  
+        Nas provas nacionais isso não vai acontecer, por isso o objetivo é:  
+        <strong>ganhar velocidade e confiança</strong>, não depender do tempo extra.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em Português</div>
+          <textarea placeholder="Ex.: No início do ano sentia que não percebia bem os textos literários. Agora já consigo apanhar melhor a ideia principal, mas ainda me baralho em perguntas de inferência..."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Ler 10–20 min por dia (textos literários)
+• Fazer 3–4 perguntas de interpretação (Escola Virtual)
+• Treinar testes com tempo limitado (sem tempo extra)
+• Continuar a usar a gramática como ponto forte"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Interpretação de textos orais</strong>  
+          <em>(“Interpreta textos orais, tendo em conta a situação e o objetivo de comunicação.”)</em><br>
+          👉 É ouvir alguém (professor, colega, vídeo) e perceber:
+          quem fala, para quem fala, porquê, e qual é a intenção (informar? convencer? explicar?).
+        </li>
+
+        <li>
+          <strong>Produção de textos orais</strong>  
+          <em>(“Planifica e produz textos orais, com diferentes finalidades...”) </em><br>
+          👉 É preparar o que vais dizer, organizar ideias e falar com clareza, respeito e cooperação.
+        </li>
+
+        <li>
+          <strong>Leitura de textos diversos</strong>  
+          <em>(“Lê, com fluência e eficácia, textos diversos...”) </em><br>
+          👉 É ler sem tropeçar, perceber o que lês e adaptar a leitura ao tipo de texto.
+        </li>
+
+        <li>
+          <strong>Sentido global e estrutura dos textos</strong>  
+          <em>(“Explicita o sentido global dos textos...”) </em><br>
+          👉 É perceber a ideia principal, a estrutura, a intenção e o ponto de vista do autor.
+        </li>
+
+        <li>
+          <strong>Leitura de obras literárias</strong>  
+          <em>(“Lê obras literárias, interpretando-as...”) </em><br>
+          👉 É perceber personagens, temas, mensagens e o estilo do autor.
+        </li>
+
+        <li>
+          <strong>Percurso pessoal de leitor</strong>  
+          <em>(“Desenvolve um percurso pessoal de leitor...”) </em><br>
+          👉 É criar o hábito de ler por iniciativa própria, não só porque é pedido.
+        </li>
+
+        <li>
+          <strong>Produção de textos escritos</strong>  
+          <em>(“Planifica e elabora textos com correção linguística...”) </em><br>
+          👉 É escrever com organização, correção, coerência e rever o texto antes de entregar.
+        </li>
+
+        <li>
+          <strong>Conteúdos gramaticais</strong>  
+          <em>(“Identifica, analisa e emprega corretamente os conteúdos...”)</em><br>
+          👉 É saber aplicar regras gramaticais, identificar funções e usar a língua com precisão.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">📚</span>
+      Português não é “fraqueza”, é um <strong>projeto de longo prazo</strong>. Cada página lida e cada texto escrito contam.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ====================== -->
+<!-- ======= INGLÊS ======= -->
+<!-- ====================== -->
+
+<section class="tab-panel" id="tab-en">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Inglês · visão geral</div>
+          <div class="card-subtitle">
+            Disciplina onde tens facilidade natural, mas onde a professora sente que não estás a dar tudo o que podes.
+          </div>
+        </div>
+        <span class="pill pill-mid">Podes subir com pouco esforço extra</span>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="stat-card">
+          <div class="stat-label">Classificações</div>
+          <div class="stat-main">
+            <span class="grade-pill grade-4">4</span>
+            <span class="grade-pill grade-4">4</span>
+            <span class="grade-pill grade-4">4</span>
+          </div>
+          <div class="stat-extra">
+            Nota estável, mas abaixo do teu potencial real (80–95% é a tua zona normal).
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Feedback da professora</div>
+          <div class="stat-main">
+            <span class="stat-tag stat-tag-good">Muito bom em aula</span>
+          </div>
+          <div class="stat-extra">
+            Participas, és super educado e comunicas bem — o que falha é o estudo antes de alguns testes.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Compreensão de textos orais</div>
+              <div class="param-full">(“Compreende a mensagem de textos orais variados relativos a temáticas de interesse pessoal ou escolar, de forma autónoma.”)</div>
+            </td>
+            <td><span class="qual-pill qual-s">Suficiente</span></td>
+            <td><span class="qual-pill qual-s">Suficiente</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Compreensão de textos escritos</div>
+              <div class="param-full">(“Compreende a mensagem de textos escritos variados relativos a temáticas de interesse pessoal ou escolar, demonstrando sentido crítico.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Vocabulário e estruturas gramaticais</div>
+              <div class="param-full">(“Demonstra um bom nível de controlo de vocabulário e estruturas gramaticais simples, procurando utilizar estruturas mais complexas...”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Comunicação oral</div>
+              <div class="param-full">(“Comunica de forma eficaz em diferentes contextos, interagindo com os outros com tolerância, empatia e cooperação.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Produção de textos escritos</div>
+              <div class="param-full">(“Redige textos coerentes e coesos sobre temáticas de interesse pessoal ou escolar, revelando empenho, compromisso e sentido crítico.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        🎧 <strong>Tradução:</strong> percebes bem o que lês e escreves bem; a compreensão oral e o estudo antes dos testes são os pontos onde podes subir mais.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        Aqui não é uma questão de “capacidade”, é mesmo de <strong>escolha</strong>: quanto queres puxar por ti em Inglês?
+      </p>
+
+      <p class="hint">
+        A professora recomenda ver séries e filmes em EN com legendas em EN — isto é treino “sem parecer estudo” e ajuda muito na compreensão oral e no vocabulário.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em Inglês</div>
+          <textarea placeholder="Ex.: Em aula sinto-me à vontade, mas antes de alguns testes não estudei quase nada. Sei que consigo chegar a 5 se levar mais a sério a preparação..."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Ver 2–3 episódios por semana em EN com legendas EN
+• Antes dos testes: rever vocabulário e estruturas 20–30 min
+• Escrever pequenos textos (mensagens, resumos) em EN
+• Falar em EN quando possível (mesmo que pareça estranho)"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Compreensão de textos orais</strong><br>
+          <em>(“Compreende a mensagem de textos orais variados...”) </em><br>
+          👉 É ouvir áudios, vídeos, professores e perceber o essencial sem precisar de tradução.
+        </li>
+
+        <li>
+          <strong>Compreensão de textos escritos</strong><br>
+          <em>(“Compreende a mensagem de textos escritos variados...”) </em><br>
+          👉 É ler textos e perceber a ideia principal, detalhes e opinião do autor.
+        </li>
+
+        <li>
+          <strong>Vocabulário e estruturas gramaticais</strong><br>
+          <em>(“Demonstra controlo de vocabulário e estruturas simples...”) </em><br>
+          👉 É usar palavras certas e frases corretas, mesmo em situações novas.
+        </li>
+
+        <li>
+          <strong>Comunicação oral</strong><br>
+          <em>(“Comunica de forma eficaz em diferentes contextos...”) </em><br>
+          👉 É conseguir explicar ideias, fazer perguntas e responder sem bloquear.
+        </li>
+
+        <li>
+          <strong>Produção de textos escritos</strong><br>
+          <em>(“Redige textos coerentes e coesos...”) </em><br>
+          👉 É escrever textos com início, meio e fim, com ligações entre frases e vocabulário adequado.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">🎧</span>
+      Inglês é uma ferramenta para a vida — quanto mais cedo investires, mais fácil tudo se torna.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======================= -->
+<!-- ======= HISTÓRIA ====== -->
+<!-- ======================= -->
+
+<section class="tab-panel" id="tab-hist">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">História · visão geral</div>
+          <div class="card-subtitle">
+            Subiste de 4 para 5 e mantiveste — sinal de estudo consistente e boa compreensão dos fenómenos históricos.
+          </div>
+        </div>
+        <span class="pill pill-good">Evolução positiva</span>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="stat-card">
+          <div class="stat-label">Classificações</div>
+          <div class="stat-main">
+            <span class="grade-pill grade-4">4</span>
+            <span class="grade-pill grade-5">5</span>
+            <span class="grade-pill grade-5">5</span>
+          </div>
+          <div class="stat-extra">
+            Mostra que, quando organizas o estudo, consegues subir e manter o nível.
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Ponto forte</div>
+          <div class="stat-main">
+            <span class="stat-tag stat-tag-good">Análise de fontes históricas</span>
+          </div>
+          <div class="stat-extra">
+            Textos, imagens, gráficos, mapas — consegues interpretar informação histórica com sentido crítico.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Localização no tempo e no espaço</div>
+              <div class="param-full">(“Localiza no tempo e no espaço os fenómenos históricos.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Domínio e mobilização do conhecimento</div>
+              <div class="param-full">(“Domina e mobiliza o conhecimento adquirido, aplicando-os em diferentes contextos, de forma empenhada.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Diferenciação de aspetos históricos</div>
+              <div class="param-full">(“Distingue os aspetos demográficos, económicos, sociais, políticos, em cada época histórica e compreende as relações entre eles.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Análise de fontes históricas</div>
+              <div class="param-full">(“Analisa diferentes tipos de fontes históricas (textos, imagens, gráficos, mapas, diagramas e mapas conceptuais), revelando sentido crítico.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Formulação de hipóteses</div>
+              <div class="param-full">(“Formula hipóteses de interpretação dos fenómenos históricos, aprendendo a conceber e sustentar um ponto de vista próprio.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 6 -->
+          <tr>
+            <td>
+              <div class="param-title">Uso da língua portuguesa na disciplina</div>
+              <div class="param-full">(“Utiliza corretamente a língua portuguesa, exprimindo-se com clareza e utilizando os conceitos da disciplina de História, interagindo com tolerância e empatia, adequando comportamentos e cumprindo regras.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 7 -->
+          <tr>
+            <td>
+              <div class="param-title">Expressão das aprendizagens</div>
+              <div class="param-full">(“Usa modalidades diversas para expressar as aprendizagens, com autonomia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 8 -->
+          <tr>
+            <td>
+              <div class="param-title">Criatividade e cooperação</div>
+              <div class="param-full">(“Cria soluções estéticas progressivamente criativas e pessoais e coopera com os outros.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        🧭 <strong>Tradução:</strong> tens boa leitura histórica, consegues relacionar acontecimentos e interpretar fontes — e isso fez a tua nota subir naturalmente.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        História mostra bem o que acontece quando decides investir um pouco mais: a nota sobe e estabiliza.
+      </p>
+
+      <p class="hint">
+        👉 A tua capacidade de perceber relações entre acontecimentos (causas, consequências, contexto) é uma grande vantagem nesta disciplina.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em História</div>
+          <textarea placeholder="Ex.: Passei de 4 para 5 quando comecei a fazer resumos e linhas do tempo. Percebo melhor as relações entre acontecimentos..."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Fazer linhas do tempo dos temas principais
+• Rever mapas e gráficos antes dos testes
+• Explicar em voz alta um acontecimento histórico como se fosse uma história"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Localização no tempo e no espaço</strong><br>
+          <em>(“Localiza no tempo e no espaço os fenómenos históricos.”)</em><br>
+          👉 É saber quando e onde algo aconteceu, e colocar acontecimentos na ordem certa.
+        </li>
+
+        <li>
+          <strong>Domínio e mobilização do conhecimento</strong><br>
+          <em>(“Domina e mobiliza o conhecimento adquirido...”) </em><br>
+          👉 É usar o que aprendeste para explicar situações novas, não só repetir o manual.
+        </li>
+
+        <li>
+          <strong>Diferenciação de aspetos históricos</strong><br>
+          <em>(“Distingue aspetos demográficos, económicos, sociais, políticos...”) </em><br>
+          👉 É perceber que a História não é só datas — envolve pessoas, economia, leis, cultura.
+        </li>
+
+        <li>
+          <strong>Análise de fontes históricas</strong><br>
+          <em>(“Analisa diferentes tipos de fontes históricas...”) </em><br>
+          👉 É olhar para documentos, imagens, mapas e tirar conclusões fundamentadas.
+        </li>
+
+        <li>
+          <strong>Formulação de hipóteses</strong><br>
+          <em>(“Formula hipóteses de interpretação...”) </em><br>
+          👉 É criar explicações possíveis para acontecimentos e defendê-las com argumentos.
+        </li>
+
+        <li>
+          <strong>Uso da língua portuguesa</strong><br>
+          <em>(“Utiliza corretamente a língua portuguesa...”) </em><br>
+          👉 É explicar ideias com clareza, usando vocabulário histórico correto.
+        </li>
+
+        <li>
+          <strong>Expressão das aprendizagens</strong><br>
+          <em>(“Usa modalidades diversas para expressar as aprendizagens...”) </em><br>
+          👉 É mostrar o que sabes através de textos, esquemas, mapas, apresentações, etc.
+        </li>
+
+        <li>
+          <strong>Criatividade e cooperação</strong><br>
+          <em>(“Cria soluções estéticas criativas e coopera com os outros.”)</em><br>
+          👉 É trabalhar bem em grupo e apresentar trabalhos com criatividade.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">🗺️</span>
+      História treina o teu pensamento crítico — ótimo complemento para Matemática e Ciências.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ========================= -->
+<!-- ======= GEOGRAFIA ======= -->
+<!-- ========================= -->
+
+<section class="tab-panel" id="tab-geo">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Geografia · visão geral</div>
+          <div class="card-subtitle">
+            Evolução semelhante à de História: de 4 para 5 e mantiveste — sinal de leitura crítica do mundo e boa organização.
+          </div>
+        </div>
+        <span class="pill pill-good">Boa leitura do mundo</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Classificações</div>
+        <div class="stat-main">
+          <span class="grade-pill grade-4">4</span>
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+        </div>
+        <div class="stat-extra">
+          Mostra que consegues articular bem fenómenos geográficos e usar mapas e dados com sentido crítico.
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Leitura e interpretação de mapas</div>
+              <div class="param-full">(“Lê e interpreta mapas e fenómenos geográficos a diferentes escalas, revelando autonomia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Compreensão de fenómenos geográficos</div>
+              <div class="param-full">(“Compreende fenómenos geográficos, articulando com rigor os diferentes conhecimentos adquiridos, revelando sentido crítico.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Vocabulário e técnicas geográficas</div>
+              <div class="param-full">(“Mobiliza o vocabulário e as técnicas geográficas, para explicar a interação entre os diferentes fenómenos, adequando comportamentos e cumprindo regras.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Seleção e organização de informação</div>
+              <div class="param-full">(“Seleciona informação pertinente e organiza de forma sistematizada a leitura de documentos geográficos e estudo autónomo, revelando empenho.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Formulação de dúvidas e questões</div>
+              <div class="param-full">(“Exprime dúvidas e coloca questões geográficas, interagindo com tolerância e empatia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 6 -->
+          <tr>
+            <td>
+              <div class="param-title">Comunicação de resultados</div>
+              <div class="param-full">(“Comunica resultados em diferentes suportes (TIC e TIG) e pesquisa/mobiliza diferentes fontes de informação geográfica na construção de respostas para os problemas, cooperando com os outros.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        🌍 <strong>Tradução:</strong> tens boa leitura de mapas, compreendes fenómenos e organizas bem a informação — isso fez a nota subir naturalmente.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        Geografia mostra que, quando percebes como os fenómenos se ligam (clima, população, economia, relevo), tudo começa a fazer sentido.
+      </p>
+
+      <p class="hint">
+        👉 A tua capacidade de interpretar mapas e relacionar dados é uma vantagem enorme nesta disciplina.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em Geografia</div>
+          <textarea placeholder="Ex.: Percebo melhor agora como os fenómenos geográficos se ligam (clima, população, economia...). Os mapas já não me assustam tanto."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Rever mapas e legendas antes dos testes
+• Fazer esquemas sobre causas e consequências dos fenómenos
+• Fazer perguntas em aula quando algo não fizer sentido"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Leitura e interpretação de mapas</strong><br>
+          <em>(“Lê e interpreta mapas e fenómenos geográficos a diferentes escalas...”) </em><br>
+          👉 É perceber o que o mapa mostra: legenda, escala, cores, símbolos, orientação.
+        </li>
+
+        <li>
+          <strong>Compreensão de fenómenos geográficos</strong><br>
+          <em>(“Compreende fenómenos geográficos, articulando conhecimentos...”) </em><br>
+          👉 É entender como clima, relevo, população, economia e ambiente se influenciam.
+        </li>
+
+        <li>
+          <strong>Vocabulário e técnicas geográficas</strong><br>
+          <em>(“Mobiliza o vocabulário e as técnicas geográficas...”) </em><br>
+          👉 É usar termos certos (latitude, densidade, erosão) e ferramentas (gráficos, mapas).
+        </li>
+
+        <li>
+          <strong>Seleção e organização de informação</strong><br>
+          <em>(“Seleciona informação pertinente e organiza documentos geográficos...”) </em><br>
+          👉 É saber escolher o que importa e organizar bem o estudo.
+        </li>
+
+        <li>
+          <strong>Formulação de dúvidas e questões</strong><br>
+          <em>(“Exprime dúvidas e coloca questões geográficas...”) </em><br>
+          👉 É fazer perguntas inteligentes quando algo não faz sentido.
+        </li>
+
+        <li>
+          <strong>Comunicação de resultados</strong><br>
+          <em>(“Comunica resultados em diferentes suportes...”) </em><br>
+          👉 É apresentar conclusões usando mapas, gráficos, TIC e fontes variadas.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">🌍</span>
+      Geografia ajuda-te a ler o mundo — ótimo treino para pensamento estruturado.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================== -->
+<!-- ======= MATEMÁTICA ======== -->
+<!-- =========================== -->
+
+<section class="tab-panel" id="tab-mat">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Matemática · visão geral</div>
+          <div class="card-subtitle">
+            Um dos teus talentos claros — mas ainda não totalmente refletido na nota final.
+          </div>
+        </div>
+        <span class="pill pill-mid">Potencial de 5</span>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="stat-card">
+          <div class="stat-label">Classificações</div>
+          <div class="stat-main">
+            <span class="grade-pill grade-4">4</span>
+            <span class="grade-pill grade-4">4</span>
+            <span class="grade-pill grade-4">4</span>
+          </div>
+          <div class="stat-extra">
+            Andas entre 80–95% e a professora vê-te como aluno de 5 — o 4 mostra que há detalhes a afinar.
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Feedback da professora</div>
+          <div class="stat-main">
+            <span class="stat-tag stat-tag-warn">Exercícios incompletos</span>
+            <span class="stat-tag stat-tag-mid">Falta de estudo em alguns conteúdos</span>
+          </div>
+          <div class="stat-extra">
+            Falhas em exercícios diretos, não usas calculadora quando é permitido, e às vezes chegas ao fim do teste mais tarde.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Compreensão e uso de conhecimentos matemáticos</div>
+              <div class="param-full">(“Compreende e usa conhecimentos matemáticos, de forma fluente e rigorosa, em situações concretas, realizando as tarefas propostas com empenho e autonomia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Raciocínio matemático</div>
+              <div class="param-full">(“Adquire e desenvolve a capacidade de raciocinar matematicamente, de forma a compreender, com sentido crítico, o porquê de certas relações estabelecidas serem matematicamente válidas.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Interpretação de problemas</div>
+              <div class="param-full">(“Interpreta e traduz matematicamente a informação de um problema.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Resolução de problemas</div>
+              <div class="param-full">(“Resolve problemas, de diversos tipos e em diversos contextos, recorrendo aos seus conhecimentos matemáticos, individualmente ou em grupo, interagindo com tolerância e empatia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Pensamento computacional</div>
+              <div class="param-full">(“Desenvolve e mobiliza o pensamento computacional na resolução de problemas, cooperando com os outros na procura de estratégias apropriadas para obter soluções válidas.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 6 -->
+          <tr>
+            <td>
+              <div class="param-title">Comunicação matemática</div>
+              <div class="param-full">(“Adquire e desenvolve a capacidade de comunicar matematicamente, de forma clara, de modo a partilhar e discutir ideias, formulando e respondendo a questões diferenciadas e adotando um comportamento adequado, de respeito para com os outros.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        🧮 <strong>Tradução:</strong> tens boa base, bom raciocínio e boa comunicação matemática — o que te falha são detalhes de execução e organização.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        Matemática é claramente uma área forte tua — aqui o objetivo não é “sobreviver”, é <strong>chegar ao nível que sabes que consegues</strong>.
+      </p>
+
+      <p class="hint">
+        👉 Da reunião com a professora:
+      </p>
+
+      <ul class="hint" style="margin-left: 16px; list-style: disc;">
+        <li>Baixaste no segundo teste por <strong>exercícios incompletos</strong> e <strong>falta de estudo</strong> em conteúdos básicos.</li>
+        <li>Por vezes não usas a <strong>calculadora</strong> quando é permitido — isso faz-te perder tempo e foco.</li>
+        <li>Acabas alguns testes mais tarde porque a professora deixa — nas provas nacionais isso não vai acontecer.</li>
+        <li>Falhaste um exercício direto (4) mas acertaste num problema mais difícil (5) — tens capacidade, mas faltou atenção ao básico.</li>
+        <li>A organização das respostas e riscos leva a erros desnecessários.</li>
+        <li>A professora sugeriu: <strong>2 exercícios por dia</strong>, especialmente de tradução de problemas PT → Mat.</li>
+      </ul>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em Matemática</div>
+          <textarea placeholder="Ex.: Sei que consigo 5, mas às vezes não estudo o suficiente ou distraio-me nos testes. Os problemas mais difíceis até me correm bem, mas perco pontos em coisas simples..."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• 2 exercícios por dia (especialmente problemas PT → Mat)
+• Usar calculadora sempre que for permitido
+• Treinar fazer testes com tempo real (sem prolongar)
+• Organizar melhor o rascunho e as respostas (menos riscos, mais clareza)"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Compreensão e uso de conhecimentos matemáticos</strong><br>
+          <em>(“Compreende e usa conhecimentos matemáticos...”) </em><br>
+          👉 É saber aplicar fórmulas, propriedades e conceitos em situações reais.
+        </li>
+
+        <li>
+          <strong>Raciocínio matemático</strong><br>
+          <em>(“Adquire e desenvolve a capacidade de raciocinar matematicamente...”) </em><br>
+          👉 É perceber porque é que algo funciona, não só decorar.
+        </li>
+
+        <li>
+          <strong>Interpretação de problemas</strong><br>
+          <em>(“Interpreta e traduz matematicamente a informação de um problema.”)</em><br>
+          👉 É transformar texto em equações, esquemas ou passos matemáticos.
+        </li>
+
+        <li>
+          <strong>Resolução de problemas</strong><br>
+          <em>(“Resolve problemas de diversos tipos...”) </em><br>
+          👉 É aplicar estratégias diferentes para chegar a soluções válidas.
+        </li>
+
+        <li>
+          <strong>Pensamento computacional</strong><br>
+          <em>(“Desenvolve e mobiliza o pensamento computacional...”) </em><br>
+          👉 É pensar por passos, criar estratégias e estruturar soluções — quase como programar.
+        </li>
+
+        <li>
+          <strong>Comunicação matemática</strong><br>
+          <em>(“Adquire e desenvolve a capacidade de comunicar matematicamente...”) </em><br>
+          👉 É explicar o raciocínio de forma clara, organizada e correta.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">🧮</span>
+      Matemática é um dos teus “super poderes” — pequenos ajustes podem transformar o 4 num 5 consistente.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================================ -->
+<!-- ======= CIÊNCIAS NATURAIS ====== -->
+<!-- ================================ -->
+
+<section class="tab-panel" id="tab-cn">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Ciências Naturais · visão geral</div>
+          <div class="card-subtitle">
+            Começaste muito bem, baixaste um pouco e voltaste a subir — sinal de boa capacidade de recuperação e foco.
+          </div>
+        </div>
+        <span class="pill pill-good">Evolução positiva</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Classificações</div>
+        <div class="stat-main">
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-4">4</span>
+          <span class="grade-pill grade-5">5</span>
+        </div>
+        <div class="stat-extra">
+          Mostra que, quando voltas a organizar o estudo, recuperas rapidamente o nível máximo.
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Uso e articulação de conhecimentos</div>
+              <div class="param-full">(“Usa e articula de forma consciente e com rigor conhecimentos, informação e outros saberes, realizando as tarefas com empenho e autonomia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Atividades práticas</div>
+              <div class="param-full">(“Problematiza e executa atividades práticas diversificadas, assumindo responsabilidades adequadas nas diferentes tarefas.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Análise de factos e teorias</div>
+              <div class="param-full">(“Analisa factos, teorias e situações identificando os seus elementos ou dados, colaborando e apoiando os outros na realização das tarefas.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Aplicação em novos contextos</div>
+              <div class="param-full">(“Mobiliza as competências desenvolvidas em problemáticas atuais e em novos contextos.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Opiniões críticas e científicas</div>
+              <div class="param-full">(“Formula e comunica opiniões críticas e cientificamente relacionadas com Ciência, Tecnologia, Sociedade e Ambiente, respeitando diferentes pontos de vista.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        🔬 <strong>Tradução:</strong> tens boa capacidade de análise e de aplicar conhecimentos em situações novas — o que te falhou no 2.º período foi consistência.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        Ciências Naturais mostra que, quando estudas de forma regular, consegues manter o nível máximo sem dificuldade.
+      </p>
+
+      <p class="hint">
+        👉 O 4 do 2.º período não foi por falta de capacidade — foi por falta de revisão contínua.  
+        Quando voltaste a rever a matéria com calma, o 5 voltou naturalmente.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em Ciências Naturais</div>
+          <textarea placeholder="Ex.: Quando revejo a matéria logo depois das aulas, sinto que os testes correm melhor. Quando deixo acumular, perco detalhes."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Rever apontamentos no próprio dia
+• Fazer esquemas simples dos temas
+• Ligar os conteúdos a exemplos do dia a dia (corpo, ambiente, etc.)"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Uso e articulação de conhecimentos</strong><br>
+          <em>(“Usa e articula de forma consciente e com rigor conhecimentos...”)</em><br>
+          👉 É aplicar o que aprendes em situações novas, com rigor e autonomia.
+        </li>
+
+        <li>
+          <strong>Atividades práticas</strong><br>
+          <em>(“Problematiza e executa atividades práticas diversificadas...”) </em><br>
+          👉 É saber trabalhar em experiências, levantar hipóteses e assumir responsabilidades.
+        </li>
+
+        <li>
+          <strong>Análise de factos e teorias</strong><br>
+          <em>(“Analisa factos, teorias e situações...”) </em><br>
+          👉 É identificar dados importantes e perceber o que significam.
+        </li>
+
+        <li>
+          <strong>Aplicação em novos contextos</strong><br>
+          <em>(“Mobiliza competências em problemáticas atuais...”) </em><br>
+          👉 É usar o que aprendeste para explicar fenómenos reais (ambiente, saúde, ecossistemas).
+        </li>
+
+        <li>
+          <strong>Opiniões críticas e científicas</strong><br>
+          <em>(“Formula e comunica opiniões críticas...”) </em><br>
+          👉 É ter opinião fundamentada sobre temas de Ciência, Tecnologia, Sociedade e Ambiente.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">🔬</span>
+      Ciências ajuda-te a perceber o mundo físico e biológico — ótimo complemento para FQ.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================================== -->
+<!-- ======= FÍSICO‑QUÍMICA =========== -->
+<!-- ================================== -->
+
+<section class="tab-panel" id="tab-fq">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Físico‑Química · visão geral</div>
+          <div class="card-subtitle">
+            Evolução muito boa: de 4 para 5 e mantiveste — sinal de domínio crescente dos fenómenos e dos laboratórios.
+          </div>
+        </div>
+        <span class="pill pill-good">Evolução positiva</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Classificações</div>
+        <div class="stat-main">
+          <span class="grade-pill grade-4">4</span>
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+        </div>
+        <div class="stat-extra">
+          Mostra que ganhaste confiança na interpretação de fenómenos e no trabalho experimental.
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Interpretação de factos, teorias e situações</div>
+              <div class="param-full">(“Interpreta factos, teorias e situações, identificando os seus elementos essenciais, de modo a validar e mobilizar a informação, com empenho e criatividade.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Manuseamento de materiais e instrumentos</div>
+              <div class="param-full">(“Manuseia materiais e instrumentos diversificados, adotando medidas de proteção adequadas às atividades laboratoriais, evidenciando responsabilidade e autonomia na execução das tarefas.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Comunicação de resultados</div>
+              <div class="param-full">(“Comunica, recorrendo a diversos suportes, resultados dos fenómenos científicos/atividades laboratoriais, usando vocabulário científico próprio da disciplina, revelando iniciativa na execução das tarefas.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Análise e planificação de problemas</div>
+              <div class="param-full">(“Analisa, organiza e planifica os elementos adequados à resolução de problemas em diferentes contextos e em novas situações, formulando hipóteses, concebendo e sustentando pontos de vista próprio e evidenciando pensamento crítico.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Linguagem científica</div>
+              <div class="param-full">(“Utiliza corretamente linguagem científica adequada na comunicação oral e escrita, participando de forma colaborativa e respeitando a opinião do outro.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        ⚗️ <strong>Tradução:</strong> estás muito forte no laboratório, na comunicação científica e na interpretação de fenómenos — a parte mais “técnica” está sólida.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        Físico‑Química combina Matemática + Ciência — duas áreas onde tens perfil natural para crescer.
+      </p>
+
+      <p class="hint">
+        👉 A subida para 5 não foi por acaso: ganhaste confiança nos laboratórios, percebeste melhor os fenómenos e começaste a explicar com mais clareza.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em Físico‑Química</div>
+          <textarea placeholder="Ex.: No início tinha mais dúvidas, mas com as experiências e exercícios comecei a perceber melhor os fenómenos."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Organizar bem dados e unidades nos problemas
+• Rever relatórios de laboratório
+• Explicar em voz alta o que acontece numa experiência (causa → efeito)"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Interpretação de factos, teorias e situações</strong><br>
+          <em>(“Interpreta factos, teorias e situações, identificando os seus elementos essenciais...”) </em><br>
+          👉 É perceber o que está a acontecer num fenómeno, identificar dados importantes e tirar conclusões.
+        </li>
+
+        <li>
+          <strong>Manuseamento de materiais e instrumentos</strong><br>
+          <em>(“Manuseia materiais e instrumentos diversificados...”) </em><br>
+          👉 É trabalhar com segurança e responsabilidade no laboratório.
+        </li>
+
+        <li>
+          <strong>Comunicação de resultados</strong><br>
+          <em>(“Comunica resultados usando vocabulário científico...”) </em><br>
+          👉 É explicar o que observaste, usando termos científicos corretos.
+        </li>
+
+        <li>
+          <strong>Análise e planificação de problemas</strong><br>
+          <em>(“Analisa, organiza e planifica elementos para resolver problemas...”) </em><br>
+          👉 É estruturar bem o raciocínio, planear passos e justificar hipóteses.
+        </li>
+
+        <li>
+          <strong>Linguagem científica</strong><br>
+          <em>(“Utiliza corretamente linguagem científica adequada...”) </em><br>
+          👉 É comunicar com precisão, clareza e rigor.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">⚗️</span>
+      FQ junta Matemática + Ciência — uma área onde o teu perfil encaixa naturalmente.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================================== -->
+<!-- ======= EDUCAÇÃO VISUAL (EV) ======== -->
+<!-- ===================================== -->
+
+<section class="tab-panel" id="tab-ev">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Educação Visual · visão geral</div>
+          <div class="card-subtitle">
+            Consistência total — criatividade, organização e boa autoanálise. Uma das tuas zonas de conforto mais fortes.
+          </div>
+        </div>
+        <span class="pill pill-good">Muito consistente</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Classificações</div>
+        <div class="stat-main">
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+        </div>
+        <div class="stat-extra">
+          Excelente domínio técnico e criativo — EV é um espaço onde brilhas naturalmente.
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Pesquisas segundo a Metodologia de Projeto</div>
+              <div class="param-full">(“Realiza pesquisas segundo a Metodologia de Projeto, com empenho e autonomia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Portefólio</div>
+              <div class="param-full">(“Arquiva e organiza o portefólio de forma sistematizada, revelando empenho e autonomia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Narrativas visuais</div>
+              <div class="param-full">(“Constrói narrativas visuais, utilizando diferentes técnicas e materiais, revelando criatividade e sentido estético.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Estudos de projeto</div>
+              <div class="param-full">(“Realiza estudos de projeto, aplicando conhecimentos adquiridos e revelando empenho e autonomia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Descrição de acontecimentos</div>
+              <div class="param-full">(“Descreve acontecimentos, objetos e imagens, utilizando vocabulário específico da disciplina.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 6 -->
+          <tr>
+            <td>
+              <div class="param-title">Composições visuais</div>
+              <div class="param-full">(“Realiza composições visuais equilibradas, aplicando princípios de organização do espaço e revelando sentido estético.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 7 -->
+          <tr>
+            <td>
+              <div class="param-title">Autonomia</div>
+              <div class="param-full">(“Revela autonomia na realização das tarefas, demonstrando empenho e responsabilidade.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+          </tr>
+
+          <!-- 8 -->
+          <tr>
+            <td>
+              <div class="param-title">Segurança e uso de instrumentos</div>
+              <div class="param-full">(“Utiliza instrumentos e materiais de forma adequada e segura, revelando responsabilidade.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 9 -->
+          <tr>
+            <td>
+              <div class="param-title">Autoanálise</div>
+              <div class="param-full">(“Faz autoanálise do seu desempenho, identificando pontos fortes e aspetos a melhorar.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        🎨 <strong>Tradução:</strong> tens criatividade, organização e sentido estético — EV é uma disciplina onde mostras maturidade e autonomia.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        Educação Visual é um espaço onde consegues juntar criatividade + disciplina — e isso nota‑se no teu portefólio.
+      </p>
+
+      <p class="hint">
+        👉 A tua consistência aqui é uma força importante: mostra foco, organização e capacidade de terminar projetos.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em Educação Visual</div>
+          <textarea placeholder="Ex.: Sinto-me à vontade a criar e organizar o portefólio. Esta disciplina é um espaço onde consigo relaxar e ao mesmo tempo ser exigente comigo."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Explorar projetos pessoais (desenho, design, etc.)
+• Usar EV para treinar foco e cumprimento de prazos
+• Guardar trabalhos de que tenhas mais orgulho"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Pesquisas segundo a Metodologia de Projeto</strong><br>
+          <em>(“Realiza pesquisas segundo a Metodologia de Projeto...”) </em><br>
+          👉 É investigar antes de criar, recolher referências e preparar ideias.
+        </li>
+
+        <li>
+          <strong>Portefólio</strong><br>
+          <em>(“Arquiva e organiza o portefólio...”) </em><br>
+          👉 É manter os trabalhos organizados, limpos e bem apresentados.
+        </li>
+
+        <li>
+          <strong>Narrativas visuais</strong><br>
+          <em>(“Constrói narrativas visuais...”) </em><br>
+          👉 É contar histórias através de imagens, composição e cor.
+        </li>
+
+        <li>
+          <strong>Estudos de projeto</strong><br>
+          <em>(“Realiza estudos de projeto...”) </em><br>
+          👉 É planear antes de executar: esboços, testes, variações.
+        </li>
+
+        <li>
+          <strong>Descrição de acontecimentos</strong><br>
+          <em>(“Descreve acontecimentos, objetos e imagens...”) </em><br>
+          👉 É observar com atenção e explicar o que vês com vocabulário técnico.
+        </li>
+
+        <li>
+          <strong>Composições visuais</strong><br>
+          <em>(“Realiza composições visuais equilibradas...”) </em><br>
+          👉 É organizar elementos no espaço de forma harmoniosa.
+        </li>
+
+        <li>
+          <strong>Autonomia</strong><br>
+          <em>(“Revela autonomia na realização das tarefas...”) </em><br>
+          👉 É trabalhar sozinho, gerir tempo e tomar decisões criativas.
+        </li>
+
+        <li>
+          <strong>Segurança e uso de instrumentos</strong><br>
+          <em>(“Utiliza instrumentos e materiais de forma adequada...”) </em><br>
+          👉 É usar réguas, x-ato, tintas, etc., com cuidado e responsabilidade.
+        </li>
+
+        <li>
+          <strong>Autoanálise</strong><br>
+          <em>(“Faz autoanálise do seu desempenho...”) </em><br>
+          👉 É perceber o que fizeste bem e o que podes melhorar no próximo trabalho.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">🎨</span>
+      EV é um bom sítio para treinar criatividade e disciplina ao mesmo tempo.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================================== -->
+<!-- ======= EDUCAÇÃO FÍSICA (EF) ========= -->
+<!-- ===================================== -->
+
+<section class="tab-panel" id="tab-ef">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Educação Física · visão geral</div>
+          <div class="card-subtitle">
+            Disciplina onde mostras espírito de equipa, respeito, empenho e excelente capacidade motora — sempre com nota máxima.
+          </div>
+        </div>
+        <span class="pill pill-good">Muito consistente</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Classificações</div>
+        <div class="stat-main">
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+        </div>
+        <div class="stat-extra">
+          Excelente desempenho físico, técnico e social — EF é uma área onde brilhas naturalmente.
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Capacidades motoras</div>
+              <div class="param-full">(“Demonstra capacidades motoras adequadas às atividades propostas, revelando empenho e autonomia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Execução técnica</div>
+              <div class="param-full">(“Executa habilidades motoras específicas das modalidades, com correção técnica e responsabilidade.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Cooperação e fair‑play</div>
+              <div class="param-full">(“Coopera com os colegas, respeitando regras, adversários e decisões, revelando fair‑play.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Autonomia e responsabilidade</div>
+              <div class="param-full">(“Revela autonomia e responsabilidade na realização das tarefas e na gestão do material.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Atitude e empenho</div>
+              <div class="param-full">(“Demonstra atitude positiva, empenho e respeito nas atividades propostas.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        ⚽ <strong>Tradução:</strong> tens excelente capacidade física, técnica e social — EF é uma disciplina onde mostras maturidade e espírito de equipa.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        Educação Física é uma área onde mostras disciplina, respeito e capacidade de trabalhar em equipa — qualidades que contam muito para a vida.
+      </p>
+
+      <p class="hint">
+        👉 O teu comportamento, fair‑play e empenho são tão importantes quanto a parte física — e aqui estás sempre no nível máximo.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em Educação Física</div>
+          <textarea placeholder="Ex.: Gosto de trabalhar em equipa e sinto que EF me ajuda a gerir energia e stress."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Manter o espírito de equipa
+• Usar o desporto para equilibrar estudo e bem‑estar
+• Definir pequenos objetivos físicos pessoais (resistência, força, técnica)"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Capacidades motoras</strong><br>
+          <em>(“Demonstra capacidades motoras adequadas...”) </em><br>
+          👉 É correr, saltar, lançar, equilibrar, reagir — com coordenação e controlo.
+        </li>
+
+        <li>
+          <strong>Execução técnica</strong><br>
+          <em>(“Executa habilidades motoras específicas...”) </em><br>
+          👉 É aplicar corretamente técnicas das modalidades (passe, remate, receção, etc.).
+        </li>
+
+        <li>
+          <strong>Cooperação e fair‑play</strong><br>
+          <em>(“Coopera com os colegas, respeitando regras...”) </em><br>
+          👉 É jogar limpo, respeitar adversários e ajudar colegas.
+        </li>
+
+        <li>
+          <strong>Autonomia e responsabilidade</strong><br>
+          <em>(“Revela autonomia e responsabilidade...”) </em><br>
+          👉 É preparar material, cumprir regras e assumir tarefas sem ser lembrado.
+        </li>
+
+        <li>
+          <strong>Atitude e empenho</strong><br>
+          <em>(“Demonstra atitude positiva, empenho...”) </em><br>
+          👉 É participar com energia, respeito e vontade de melhorar.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">⚽</span>
+      EF é uma aliada importante para o teu bem‑estar físico e mental.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================================== -->
+<!-- ========== TIC (Informática) ========= -->
+<!-- ===================================== -->
+
+<section class="tab-panel" id="tab-tic">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">TIC · visão geral</div>
+          <div class="card-subtitle">
+            Disciplina onde tens facilidade natural, boa autonomia e excelente capacidade de adaptação às ferramentas digitais.
+          </div>
+        </div>
+        <span class="pill pill-good">Muito consistente</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Classificações</div>
+        <div class="stat-main">
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+        </div>
+        <div class="stat-extra">
+          Excelente domínio das ferramentas digitais, organização e responsabilidade — TIC é claramente uma área forte tua.
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Utilização de ferramentas digitais</div>
+              <div class="param-full">(“Utiliza ferramentas digitais de forma adequada, responsável e autónoma.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Criação e edição de conteúdos</div>
+              <div class="param-full">(“Cria e edita conteúdos digitais, aplicando conhecimentos técnicos e criatividade.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Pesquisa e seleção de informação</div>
+              <div class="param-full">(“Pesquisa, seleciona e organiza informação de forma crítica e responsável.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Segurança digital</div>
+              <div class="param-full">(“Adota comportamentos seguros e responsáveis no uso das tecnologias e na navegação online.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Trabalho colaborativo</div>
+              <div class="param-full">(“Trabalha de forma colaborativa em ambientes digitais, respeitando regras e contribuindo para o grupo.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        💻 <strong>Tradução:</strong> tens excelente domínio das ferramentas digitais, boa criatividade e responsabilidade — TIC é uma disciplina onde te destacas naturalmente.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        TIC mostra que tens facilidade em aprender ferramentas novas e resolver problemas digitais — uma competência muito valiosa para o futuro.
+      </p>
+
+      <p class="hint">
+        👉 A tua autonomia e responsabilidade destacam‑se: sabes trabalhar sozinho, mas também sabes colaborar quando é preciso.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em TIC</div>
+          <textarea placeholder="Ex.: Sinto que aprendo rápido novas ferramentas e gosto de trabalhar com tecnologia. TIC é uma disciplina onde me sinto confiante."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Explorar ferramentas novas (edição, programação, design)
+• Criar pequenos projetos pessoais
+• Manter boas práticas de segurança digital"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Utilização de ferramentas digitais</strong><br>
+          <em>(“Utiliza ferramentas digitais de forma adequada...”) </em><br>
+          👉 É saber usar programas, plataformas e dispositivos com autonomia e responsabilidade.
+        </li>
+
+        <li>
+          <strong>Criação e edição de conteúdos</strong><br>
+          <em>(“Cria e edita conteúdos digitais...”) </em><br>
+          👉 É produzir trabalhos digitais: apresentações, imagens, vídeos, documentos, etc.
+        </li>
+
+        <li>
+          <strong>Pesquisa e seleção de informação</strong><br>
+          <em>(“Pesquisa, seleciona e organiza informação...”) </em><br>
+          👉 É saber procurar informação fiável e organizar o que é importante.
+        </li>
+
+        <li>
+          <strong>Segurança digital</strong><br>
+          <em>(“Adota comportamentos seguros...”) </em><br>
+          👉 É proteger dados pessoais, usar passwords seguras e navegar com cuidado.
+        </li>
+
+        <li>
+          <strong>Trabalho colaborativo</strong><br>
+          <em>(“Trabalha de forma colaborativa...”) </em><br>
+          👉 É saber trabalhar em equipa usando ferramentas digitais (Docs, Teams, etc.).
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">💻</span>
+      TIC é uma competência essencial para o futuro — e tu tens uma base muito forte.
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================================== -->
+<!-- ======= CIDADANIA E DESENVOLVIMENTO ======= -->
+<!-- =========================================== -->
+
+<section class="tab-panel" id="tab-cid">
+  <div class="panel-scroll">
+
+    <!-- VISÃO GERAL -->
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Cidadania · visão geral</div>
+          <div class="card-subtitle">
+            Disciplina onde mostras maturidade, respeito, responsabilidade e boa capacidade de reflexão sobre temas sociais.
+          </div>
+        </div>
+        <span class="pill pill-good">Muito consistente</span>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Classificações</div>
+        <div class="stat-main">
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+          <span class="grade-pill grade-5">5</span>
+        </div>
+        <div class="stat-extra">
+          Excelente participação, respeito e sentido crítico — Cidadania é uma área onde mostras maturidade acima da média.
+        </div>
+      </div>
+    </section>
+
+    <!-- AVALIAÇÃO QUALITATIVA -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Avaliação qualitativa · 3 períodos</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>1.º P</th>
+            <th>2.º P</th>
+            <th>3.º P</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- 1 -->
+          <tr>
+            <td>
+              <div class="param-title">Participação e envolvimento</div>
+              <div class="param-full">(“Participa de forma empenhada e responsável nas atividades propostas.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 2 -->
+          <tr>
+            <td>
+              <div class="param-title">Trabalho colaborativo</div>
+              <div class="param-full">(“Trabalha de forma colaborativa, respeitando opiniões e contribuindo para o grupo.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 3 -->
+          <tr>
+            <td>
+              <div class="param-title">Reflexão crítica</div>
+              <div class="param-full">(“Reflete criticamente sobre temas sociais, ambientais e éticos, formulando opiniões fundamentadas.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 4 -->
+          <tr>
+            <td>
+              <div class="param-title">Responsabilidade e respeito</div>
+              <div class="param-full">(“Revela responsabilidade, respeito e cumprimento das regras de convivência.”)</div>
+            </td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+          <!-- 5 -->
+          <tr>
+            <td>
+              <div class="param-title">Projetos de cidadania</div>
+              <div class="param-full">(“Participa na conceção e execução de projetos de cidadania, revelando empenho e autonomia.”)</div>
+            </td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-b">Bom</span></td>
+            <td><span class="qual-pill qual-mb">Muito Bom</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="hint">
+        🧭 <strong>Tradução:</strong> tens maturidade, respeito e sentido crítico — Cidadania é uma disciplina onde mostras valores sólidos e boa reflexão.
+      </p>
+    </section>
+
+    <!-- COMENTÁRIO À EVOLUÇÃO -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">Comentário à evolução (para ti)</div>
+      </div>
+
+      <p class="card-subtitle">
+        Cidadania é uma disciplina que avalia mais do que conhecimento — avalia atitude, respeito, empatia e capacidade de pensar sobre o mundo.
+      </p>
+
+      <p class="hint">
+        👉 A tua evolução mostra responsabilidade, respeito pelos outros e capacidade de trabalhar em grupo — qualidades essenciais para a vida adulta.
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 8px;">
+        <div>
+          <div class="textarea-label">🧠 Como eu vejo a minha evolução em Cidadania</div>
+          <textarea placeholder="Ex.: Sinto que consigo ouvir opiniões diferentes e participar de forma responsável. Gosto de discutir temas sociais e ambientais."></textarea>
+        </div>
+
+        <div>
+          <div class="textarea-label">🎯 Pequenos passos para o próximo ano</div>
+          <textarea placeholder="Sugestão:
+• Participar mais em debates
+• Ajudar colegas em trabalhos de grupo
+• Refletir sobre temas atuais (ambiente, sociedade, ética)"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE SIGNIFICAM ESTES CAMPOS -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-title">O que significam estes campos da escola?</div>
+      </div>
+
+      <ul class="hint" style="margin-left: 16px; margin-top: 6px; list-style: disc;">
+
+        <li>
+          <strong>Participação e envolvimento</strong><br>
+          👉 É estar presente, contribuir e mostrar empenho nas atividades.
+        </li>
+
+        <li>
+          <strong>Trabalho colaborativo</strong><br>
+          👉 É saber trabalhar em grupo, ouvir, respeitar e ajudar.
+        </li>
+
+        <li>
+          <strong>Reflexão crítica</strong><br>
+          👉 É pensar sobre temas sociais e ambientais com argumentos e respeito.
+        </li>
+
+        <li>
+          <strong>Responsabilidade e respeito</strong><br>
+          👉 É cumprir regras, tratar todos com respeito e assumir compromissos.
+        </li>
+
+        <li>
+          <strong>Projetos de cidadania</strong><br>
+          👉 É participar em ações e projetos que melhoram a escola ou a comunidade.
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- RODAPÉ -->
+    <div class="footer-note">
+      <span class="icon">🧭</span>
+      Cidadania ajuda-te a crescer como pessoa — e aqui mostras maturidade e respeito.
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+      <!-- CONCLUSÃO GERAL (VAI NO FIM, DEPOIS DAS DISCIPLINAS) -->
+      <!-- TAMBÉM ENVIO NUM BLOCO PRÓPRIO MAIS À FRENTE -->
+
+    </main>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll(".tab-button");
+    const panels = document.querySelectorAll(".tab-panel");
+    const title = document.querySelector(".content-header h1");
+    const subtitle = document.querySelector(".content-header p");
+    const themeToggle = document.getElementById("themeToggle");
+
+    const titles = {
+      overview: {
+        title: "📊 Visão geral",
+        subtitle: "Um painel para veres, com calma, o caminho que fizeste este ano — disciplina a disciplina."
+      },
+      pt: {
+        title: "📚 Português",
+        subtitle: "A disciplina mais desafiante para ti — e onde já mostraste muita resistência e evolução."
+      },
+      en: {
+        title: "🎧 Inglês",
+        subtitle: "Tens facilidade natural — agora é alinhar o esforço com o potencial."
+      },
+      hist: {
+        title: "📜 História",
+        subtitle: "Subiste e mantiveste o nível — sinal de estudo consistente."
+      },
+      geo: {
+        title: "🗺️ Geografia",
+        subtitle: "Boa leitura do mundo e dos fenómenos geográficos."
+      },
+      mat: {
+        title: "🧮 Matemática",
+        subtitle: "Um dos teus talentos — com pequenos ajustes, o 4 pode virar 5."
+      },
+      cn: {
+        title: "🔬 Ciências Naturais",
+        subtitle: "Boa base científica e capacidade de recuperação."
+      },
+      fq: {
+        title: "⚗️ Físico-Química",
+        subtitle: "Matemática + Ciência — combinação que te favorece."
+      },
+      ev: {
+        title: "🎨 Educação Visual",
+        subtitle: "Criatividade, organização e autoanálise em alta."
+      },
+      ef: {
+        title: "⚽ Educação Física",
+        subtitle: "Trabalho em equipa, respeito e aptidão física."
+      },
+      tic: {
+        title: "💻 TIC · Multimédia",
+        subtitle: "Tecnologia como ferramenta de criação e pensamento crítico."
+      },
+      cid: {
+        title: "🤝 Cidadania e Desenvolvimento",
+        subtitle: "Mostra quem és como colega e cidadão."
+      },
+      fil: {
+        title: "💭 Filosofia",
+        subtitle: "Treino de pensamento, argumentos e respeito pelas ideias."
+      },
+      teatro: {
+        title: "🎭 Teatro e Comunicação",
+        subtitle: "Confiança, expressão e trabalho de grupo."
+      },
+      de: {
+        title: "🇩🇪 Alemão",
+        subtitle: "Uma das tuas grandes forças linguísticas."
+      },
+      bu: {
+        title: "📓 B.U+",
+        subtitle: "Painel de controlo do teu próprio desenvolvimento."
+      },
+      conclusao: {
+        title: "✅ Conclusão geral",
+        subtitle: "Juntar tudo e decidir os próximos pequenos passos."
+      }
+    };
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tab = btn.getAttribute("data-tab");
+
+        buttons.forEach((b) => b.classList.remove("active"));
+        panels.forEach((p) => p.classList.remove("active"));
+
+        btn.classList.add("active");
+        const panel = document.getElementById("tab-" + tab);
+        if (panel) {
+          panel.classList.add("active");
+        }
+
+        if (titles[tab]) {
+          title.innerHTML = titles[tab].title + ' <span class="title-pill">3.º Período · 8.º ano</span>';
+          subtitle.textContent = titles[tab].subtitle;
+        }
+      });
+    });
+
+    function applyTheme(theme) {
+      if (theme === "light") {
+        document.body.classList.add("light");
+        themeToggle.textContent = "☀️";
+      } else {
+        document.body.classList.remove("light");
+        themeToggle.textContent = "🌙";
+      }
+    }
+
+    const storedTheme = localStorage.getItem("alex_theme");
+    if (storedTheme) {
+      applyTheme(storedTheme);
+    } else {
+      const prefersLight = window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: light)").matches;
+      applyTheme(prefersLight ? "light" : "dark");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      const isLight = document.body.classList.contains("light");
+      const newTheme = isLight ? "dark" : "light";
+      applyTheme(newTheme);
+      localStorage.setItem("alex_theme", newTheme);
+    });
+  </script>
+</body>
+</html>
