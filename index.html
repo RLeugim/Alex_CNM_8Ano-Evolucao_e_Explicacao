@@ -4,37 +4,36 @@
   <meta charset="UTF-8" />
   <title>Alexandre · 8.º ano · 3.º Período</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    /* ============================================================
+  <style>/* ============================================================
    BASE — CORES, TIPOGRAFIA, RESET
    ============================================================ */
-
 :root {
-  --bg: #0f172a;
-  --bg-alt: #020617;
-  --card: #0f172a;
-  --accent: #2563eb;
-  --accent-soft: rgba(37, 99, 235, 0.12);
-  --accent-strong: #1d4ed8;
-  --text: #e5e7eb;
-  --muted: #94a3b8;
-  --border: rgba(148, 163, 184, 0.18);
-  --radius-lg: 18px;
-  --radius-md: 12px;
+  --bg: #0d1528;
+  --bg-alt: #111a33;
+  --card: #16213e;
+  --accent: #3b82f6;
+  --accent-strong: #2563eb;
+  --accent-soft: rgba(59, 130, 246, 0.18);
+  --text: #e8ecf5;
+  --muted: #9aa4c2;
+  --border: rgba(255, 255, 255, 0.08);
+  --radius-lg: 20px;
+  --radius-md: 14px;
   --radius-pill: 999px;
-  --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.45);
-  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Segoe UI", sans-serif;
+  --shadow-soft: 0 14px 34px rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 10px 28px rgba(0, 0, 0, 0.35);
+  --font-main: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body.light {
-  --bg: #f5f5f5;
+  --bg: #f5f7fb;
   --bg-alt: #ffffff;
   --card: #ffffff;
-  --text: #111827;
-  --muted: #6b7280;
-  --border: rgba(148, 163, 184, 0.35);
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: rgba(0, 0, 0, 0.08);
   --shadow-soft: 0 10px 26px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -45,17 +44,17 @@ body.light {
 
 body {
   font-family: var(--font-main);
-  background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #000 100%);
+  background: radial-gradient(circle at top, #1a2440 0%, #0d1528 45%, #000 100%);
   color: var(--text);
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 16px;
+  padding: 18px;
   transition: background 0.25s ease-out, color 0.25s ease-out;
 }
 
 body.light {
-  background: radial-gradient(circle at top, #e5e7eb 0, #f5f5f5 40%, #e5e7eb 100%);
+  background: radial-gradient(circle at top, #e2e8f0 0%, #f5f7fb 40%, #e2e8f0 100%);
 }
 
 /* ============================================================
@@ -67,8 +66,8 @@ body.light {
   flex-direction: row;
   max-width: 1200px;
   width: 100%;
-  background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
-  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(22, 33, 62, 0.98), rgba(13, 21, 40, 0.98));
+  border-radius: 26px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-soft);
   overflow: hidden;
@@ -77,7 +76,7 @@ body.light {
 }
 
 body.light .app-shell {
-  background: linear-gradient(145deg, #ffffff, #f9fafb);
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
 }
 
 /* ============================================================
@@ -88,11 +87,11 @@ body.light .app-shell {
   width: 260px;
   background: var(--bg-alt);
   border-right: 1px solid var(--border);
-  padding: 18px 14px 18px 18px;
+  padding: 22px 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  transition: 0.25s ease-out;
+  gap: 20px;
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.04);
 }
 
 .sidebar-section-title {
@@ -100,33 +99,38 @@ body.light .app-shell {
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--muted);
+  margin-top: 6px;
 }
 
 .tab-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  overflow-y: auto;
+  gap: 6px;
 }
 
 .tab-button {
   border: none;
   background: transparent;
   color: var(--muted);
-  padding: 8px 10px;
+  padding: 10px 14px;
   border-radius: var(--radius-pill);
-  font-size: 13px;
+  font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
   transition: 0.18s ease-out;
 }
 
-.tab-button.active {
-  background: rgba(37, 99, 235, 0.25);
+.tab-button:hover {
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text);
-  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4);
+}
+
+.tab-button.active {
+  background: var(--accent-soft);
+  color: var(--text);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 /* ============================================================
@@ -135,35 +139,127 @@ body.light .app-shell {
 
 .content {
   flex: 1;
-  padding: 20px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 18px;
   background: var(--bg-alt);
 }
 
-.content-header {
+.content-header h1 {
+  font-size: 26px;
+  font-weight: 700;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.title-pill {
+  background: var(--accent-soft);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  color: var(--accent);
 }
 
 /* ============================================================
-   MOBILE — MENU BAR (NOVO)
+   CARDS
+   ============================================================ */
+
+.card {
+  background: var(--card);
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   PILLS / TAGS
+   ============================================================ */
+
+.grade-pill {
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+}
+
+.grade-5 { background: #16a34a; }
+.grade-4 { background: #2563eb; }
+.grade-3 { background: #d97706; }
+.grade-2 { background: #dc2626; }
+
+.stat-tag {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.stat-tag-good { background: rgba(16, 185, 129, 0.18); color: #10b981; }
+.stat-tag-mid { background: rgba(234, 179, 8, 0.18); color: #eab308; }
+.stat-tag-warn { background: rgba(239, 68, 68, 0.18); color: #ef4444; }
+
+/* ============================================================
+   MOBILE — MENU BAR
    ============================================================ */
 
 .mobile-topbar {
   display: none;
 }
 
-/* ============================================================
-   MOBILE — RESPONSIVE
-   ============================================================ */
-
 @media (max-width: 900px) {
 
-  /* Esconde sidebar por padrão */
+  .app-shell {
+    flex-direction: column;
+  }
+
+  .mobile-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: var(--bg-alt);
+    border-radius: var(--radius-lg);
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .mobile-menu-btn {
+    font-size: 20px;
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .mobile-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  /* Sidebar overlay */
   .sidebar {
     position: fixed;
     top: 0;
@@ -171,19 +267,14 @@ body.light .app-shell {
     transform: translateX(-50%) translateY(-20px);
     width: 90%;
     max-width: 360px;
-    height: auto;
     max-height: 80vh;
-    background: var(--bg-alt);
-    border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.55);
     opacity: 0;
     pointer-events: none;
     transition: 0.25s ease-out;
     z-index: 999;
+    border-radius: var(--radius-lg);
   }
 
-  /* Overlay */
   body.menu-open::before {
     content: "";
     position: fixed;
@@ -191,70 +282,12 @@ body.light .app-shell {
     background: rgba(0,0,0,0.55);
     backdrop-filter: blur(4px);
     z-index: 998;
-    opacity: 1;
   }
 
-  /* Sidebar aberta */
   body.menu-open .sidebar {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(-50%) translateY(0);
-  }
-
-  /* Topbar mobile */
-  .mobile-topbar {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 16px;
-    background: var(--bg-alt);
-    border-radius: 18px;
-    margin-bottom: 12px;
-    box-shadow: var(--shadow-soft);
-  }
-
-  .mobile-menu-btn {
-    font-size: 20px;
-    padding: 6px 14px;
-    border-radius: var(--radius-pill);
-    background: rgba(37, 99, 235, 0.25);
-    border: 1px solid rgba(37, 99, 235, 0.4);
-    color: var(--text);
-    cursor: pointer;
-    transition: 0.2s;
-  }
-
-  .mobile-title {
-    font-size: 17px;
-    font-weight: 600;
-  }
-
-  /* Esconde sidebar original */
-  .app-shell {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    position: fixed;
-  }
-}
-
-/* ============================================================
-   MOBILE — AJUSTES FINOS
-   ============================================================ */
-
-@media (max-width: 600px) {
-  body {
-    padding: 8px;
-  }
-
-  .card {
-    padding: 10px;
-  }
-
-  table {
-    font-size: 11px;
   }
 }
 </style>
